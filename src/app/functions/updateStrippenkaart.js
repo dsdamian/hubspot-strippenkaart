@@ -39,7 +39,7 @@ async function getTypeIds() {
   for (const s of data.results || []) byName[s.name] = s.objectTypeId;
   if (!byName.strippenkaart || !byName.urenregistratie) {
     throw new Error(
-      'Custom objects "strippenkaart" en/of "urenregistratie" niet gevonden. Draai eerst setup/create_custom_objects.py.'
+      'Custom objects "strippenkaart" en/of "urenregistratie" niet gevonden. Maak ze eerst aan (zie README, sectie Installatie).'
     );
   }
   typeIdCache = { strip: byName.strippenkaart, uren: byName.urenregistratie };

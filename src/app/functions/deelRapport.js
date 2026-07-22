@@ -39,7 +39,7 @@ async function getTypeIds() {
   for (const s of data.results || []) byName[s.name] = s.objectTypeId;
   if (!byName.strippenkaart || !byName.urenregistratie) {
     throw new Error(
-      'Custom objects "strippenkaart" en/of "urenregistratie" niet gevonden. Draai eerst setup/create_custom_objects.py.'
+      'Custom objects "strippenkaart" en/of "urenregistratie" niet gevonden. Maak ze eerst aan (zie README, sectie Installatie).'
     );
   }
   typeIdCache = { strip: byName.strippenkaart, uren: byName.urenregistratie };
@@ -281,7 +281,7 @@ async function maakPdf(bedrijf, kaart, periodeLabel, rows, beginsaldo, afgeboekt
       // ongeldige base64: sla het logo over in plaats van de hele PDF te laten falen
     }
   } else if (LOGO_SVG_PATH) {
-    // Fallback: enkelpad-SVG (zoals het MMM-logo)
+    // Fallback: enkelpad-SVG (zie LOGO_SVG_PATH in het BRANDING-blok)
     const schaal = logoW / LOGO_VIEWBOX.w;
     page.drawSvgPath(LOGO_SVG_PATH, {
       x: rechts - logoW,
