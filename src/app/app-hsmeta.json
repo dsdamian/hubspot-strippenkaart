@@ -2,7 +2,7 @@
   "uid": "strippenkaart-app",
   "type": "app",
   "config": {
-    "name": "Make Marketing Magic",
+    "name": "Strippenkaart",
     "description": "Urenregistratie op strippenkaarten per klant. Toont resterende uren op het bedrijfsrecord en laat je direct uren loggen.",
     "distribution": "private",
     "auth": {

@@ -61,26 +61,26 @@ passen onder de MIT-licentie - ook voor collega HubSpot-partners.
 5. **Card op het bedrijfsrecord zetten**: open een bedrijf > **Aanpassen** > kies een tab >
    voeg via de kaartbibliotheek (filter op **App**) de kaart toe en sla het weergaveprofiel op.
 
-## Je eigen logo in het PDF-rapport
+## Maak het van jezelf (branding)
 
-Het maandrapport tekent een logo rechtsboven. Zo zet je je eigen logo erin (werkt met elk
-logo, ook met meerdere kleuren en transparantie):
+Deze repo bevat geen bedrijfsbranding; standaard zijn de rapporten neutraal. Zo zet je je
+eigen naam en logo erin:
 
-1. Zet je logo klaar als PNG (bijvoorbeeld `logo.png`).
-2. Zet het om naar base64:
+1. **Naam op de card** ("Powered by ..."): pas `config.name` aan in `src/app/app-hsmeta.json`.
+2. **Logo op het PDF-rapport**: open `src/app/functions/deelRapport.js` en vul in het
+   BRANDING-blok bovenaan `LOGO_PNG_BASE64` met je logo als base64-PNG:
    ```bash
    # macOS:   zet het resultaat op je klembord
    base64 -i logo.png | pbcopy
    # Linux:
    base64 -w0 logo.png
    ```
-   (Geen terminal? Zoek online op "png to base64" en plak je bestand.)
-3. Open `src/app/functions/deelRapport.js` en plak de string tussen de quotes bij
-   `const LOGO_PNG_BASE64 = '...';`.
-4. Deploy opnieuw: `hs project upload`.
+   (Geen terminal? Zoek online op "png to base64".) Werkt met elk logo, ook meerdere kleuren
+   en transparantie. Een breed logo van ongeveer 3:1 oogt het mooist. Laat leeg voor geen logo.
+3. **Naam onder het rapport**: zet je bedrijfsnaam in `BEDRIJFSNAAM` in datzelfde blok
+   ("Gegenereerd op &lt;datum&gt; door &lt;naam&gt;"). Laat leeg om alleen de datum te tonen.
 
-Laat je `LOGO_PNG_BASE64` leeg, dan valt de app terug op de ingebouwde enkelpad-SVG
-(`LOGO_SVG_PATH`). Een breed logo van ongeveer 3:1 (breedte : hoogte) oogt het mooist.
+Deploy daarna opnieuw met `hs project upload`.
 
 ## Dagelijks gebruik
 
