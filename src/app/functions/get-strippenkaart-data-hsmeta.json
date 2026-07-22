@@ -1,0 +1,8 @@
+{
+  "uid": "get_strippenkaart_data",
+  "type": "app-function",
+  "config": {
+    "entrypoint": "/app/functions/getStrippenkaartData.js",
+    "secretKeys": []
+  }
+}

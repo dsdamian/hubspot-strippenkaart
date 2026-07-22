@@ -1,0 +1,76 @@
+{
+  "name": "urenregistratie",
+  "labels": {
+    "singular": "Urenregistratie",
+    "plural": "Urenregistraties"
+  },
+  "primaryDisplayProperty": "omschrijving",
+  "requiredProperties": [
+    "uren"
+  ],
+  "searchableProperties": [
+    "omschrijving"
+  ],
+  "properties": [
+    {
+      "name": "omschrijving",
+      "label": "Omschrijving",
+      "type": "string",
+      "fieldType": "text"
+    },
+    {
+      "name": "datum",
+      "label": "Datum",
+      "type": "date",
+      "fieldType": "date"
+    },
+    {
+      "name": "uren",
+      "label": "Uren",
+      "type": "number",
+      "fieldType": "number"
+    },
+    {
+      "name": "werktype",
+      "label": "Werktype",
+      "type": "enumeration",
+      "fieldType": "select",
+      "options": [
+        {
+          "label": "Workflows & automatisering",
+          "value": "workflows"
+        },
+        {
+          "label": "Rapportages & dashboards",
+          "value": "rapportages"
+        },
+        {
+          "label": "Campagnes",
+          "value": "campagnes"
+        },
+        {
+          "label": "Support & vragen",
+          "value": "support"
+        },
+        {
+          "label": "Overleg",
+          "value": "overleg"
+        },
+        {
+          "label": "Overig",
+          "value": "overig"
+        }
+      ]
+    },
+    {
+      "name": "medewerker",
+      "label": "Medewerker",
+      "type": "string",
+      "fieldType": "text"
+    }
+  ],
+  "associatedObjects": [
+    "COMPANY",
+    "REPLACE_WITH_STRIPPENKAART_OBJECT_TYPE_ID"
+  ]
+}

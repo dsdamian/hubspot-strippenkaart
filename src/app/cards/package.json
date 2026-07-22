@@ -1,0 +1,9 @@
+{
+  "name": "strippenkaart-card",
+  "version": "0.1.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@hubspot/ui-extensions": "latest",
+    "react": "^18.2.0"
+  }
+}

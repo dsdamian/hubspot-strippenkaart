@@ -1,0 +1,8 @@
+{
+  "uid": "update_uren",
+  "type": "app-function",
+  "config": {
+    "entrypoint": "/app/functions/updateUren.js",
+    "secretKeys": []
+  }
+}

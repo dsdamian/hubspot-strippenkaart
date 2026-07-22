@@ -1,0 +1,8 @@
+{
+  "uid": "update_strippenkaart",
+  "type": "app-function",
+  "config": {
+    "entrypoint": "/app/functions/updateStrippenkaart.js",
+    "secretKeys": []
+  }
+}

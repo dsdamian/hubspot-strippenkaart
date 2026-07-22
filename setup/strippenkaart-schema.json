@@ -1,0 +1,87 @@
+{
+  "name": "strippenkaart",
+  "labels": {
+    "singular": "Strippenkaart",
+    "plural": "Strippenkaarten"
+  },
+  "primaryDisplayProperty": "naam",
+  "requiredProperties": [
+    "naam",
+    "totaal_uren"
+  ],
+  "searchableProperties": [
+    "naam"
+  ],
+  "properties": [
+    {
+      "name": "naam",
+      "label": "Naam",
+      "type": "string",
+      "fieldType": "text"
+    },
+    {
+      "name": "totaal_uren",
+      "label": "Totaal uren",
+      "type": "number",
+      "fieldType": "number"
+    },
+    {
+      "name": "verbruikte_uren",
+      "label": "Verbruikte uren",
+      "type": "number",
+      "fieldType": "number"
+    },
+    {
+      "name": "resterende_uren",
+      "label": "Resterende uren",
+      "type": "number",
+      "fieldType": "number"
+    },
+    {
+      "name": "uurtarief",
+      "label": "Uurtarief (EUR)",
+      "type": "number",
+      "fieldType": "number"
+    },
+    {
+      "name": "startdatum",
+      "label": "Startdatum",
+      "type": "date",
+      "fieldType": "date"
+    },
+    {
+      "name": "geldig_tot",
+      "label": "Geldig tot",
+      "type": "date",
+      "fieldType": "date"
+    },
+    {
+      "name": "status",
+      "label": "Status",
+      "type": "enumeration",
+      "fieldType": "select",
+      "options": [
+        {
+          "label": "Actief",
+          "value": "actief"
+        },
+        {
+          "label": "Bijna op",
+          "value": "bijna_op"
+        },
+        {
+          "label": "Verbruikt",
+          "value": "verbruikt"
+        },
+        {
+          "label": "Verlopen",
+          "value": "verlopen"
+        }
+      ]
+    }
+  ],
+  "associatedObjects": [
+    "COMPANY",
+    "DEAL"
+  ]
+}

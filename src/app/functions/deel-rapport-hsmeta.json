@@ -1,0 +1,8 @@
+{
+  "uid": "deel_rapport",
+  "type": "app-function",
+  "config": {
+    "entrypoint": "/app/functions/deelRapport.js",
+    "secretKeys": []
+  }
+}

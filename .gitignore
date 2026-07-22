@@ -1,0 +1,19 @@
+# HubSpot config met je persoonlijke access key - NOOIT committen
+hubspot.config.yml
+hubspot.config.yaml
+
+# Node
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Interne notities / gegenereerde bestanden
+*.docx
+*.pdf
+
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc

@@ -1,0 +1,34 @@
+{
+  "uid": "strippenkaart-app",
+  "type": "app",
+  "config": {
+    "name": "Make Marketing Magic",
+    "description": "Urenregistratie op strippenkaarten per klant. Toont resterende uren op het bedrijfsrecord en laat je direct uren loggen.",
+    "distribution": "private",
+    "auth": {
+      "type": "static",
+      "requiredScopes": [
+        "oauth",
+        "crm.objects.companies.read",
+        "crm.objects.custom.read",
+        "crm.objects.custom.write",
+        "crm.schemas.custom.read",
+        "crm.schemas.custom.write",
+        "files"
+      ],
+      "optionalScopes": [],
+      "conditionallyRequiredScopes": []
+    },
+    "permittedUrls": {
+      "fetch": [],
+      "iframe": [],
+      "img": []
+    },
+    "support": {
+      "supportEmail": "support@example.com",
+      "documentationUrl": "https://example.com",
+      "supportUrl": "https://example.com",
+      "supportPhone": "+31000000000"
+    }
+  }
+}

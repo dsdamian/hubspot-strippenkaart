@@ -1,0 +1,8 @@
+{
+  "uid": "delete_uren",
+  "type": "app-function",
+  "config": {
+    "entrypoint": "/app/functions/deleteUren.js",
+    "secretKeys": []
+  }
+}

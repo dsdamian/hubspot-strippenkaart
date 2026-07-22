@@ -1,0 +1,8 @@
+{
+  "uid": "log_uren",
+  "type": "app-function",
+  "config": {
+    "entrypoint": "/app/functions/logUren.js",
+    "secretKeys": []
+  }
+}

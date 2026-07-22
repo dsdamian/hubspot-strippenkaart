@@ -1,0 +1,8 @@
+{
+  "uid": "create_strippenkaart",
+  "type": "app-function",
+  "config": {
+    "entrypoint": "/app/functions/createStrippenkaart.js",
+    "secretKeys": []
+  }
+}
