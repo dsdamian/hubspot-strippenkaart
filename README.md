@@ -63,10 +63,24 @@ passen onder de MIT-licentie - ook voor collega HubSpot-partners.
 
 ## Je eigen logo in het PDF-rapport
 
-Het maandrapport tekent standaard een logo rechtsboven. Vervang dit door je eigen logo:
-open `src/app/functions/deelRapport.js` en pas `LOGO_SVG_PATH` en `LOGO_VIEWBOX` aan naar het
-`d`-attribuut en de `viewBox` van je eigen (enkelpad-)SVG. Deploy daarna opnieuw met
-`hs project upload`.
+Het maandrapport tekent een logo rechtsboven. Zo zet je je eigen logo erin (werkt met elk
+logo, ook met meerdere kleuren en transparantie):
+
+1. Zet je logo klaar als PNG (bijvoorbeeld `logo.png`).
+2. Zet het om naar base64:
+   ```bash
+   # macOS:   zet het resultaat op je klembord
+   base64 -i logo.png | pbcopy
+   # Linux:
+   base64 -w0 logo.png
+   ```
+   (Geen terminal? Zoek online op "png to base64" en plak je bestand.)
+3. Open `src/app/functions/deelRapport.js` en plak de string tussen de quotes bij
+   `const LOGO_PNG_BASE64 = '...';`.
+4. Deploy opnieuw: `hs project upload`.
+
+Laat je `LOGO_PNG_BASE64` leeg, dan valt de app terug op de ingebouwde enkelpad-SVG
+(`LOGO_SVG_PATH`). Een breed logo van ongeveer 3:1 (breedte : hoogte) oogt het mooist.
 
 ## Dagelijks gebruik
 
