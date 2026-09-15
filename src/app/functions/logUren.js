@@ -89,17 +89,19 @@ function berekenStatus(totaal, verbruikt, geldigTot) {
 function mapKaart(obj) {
   const p = obj.properties || {};
   const totaal = num(p.totaal_uren);
-  const verbruikt = num(p.verbruikte_uren);
+  const verbruiktStored = num(p.verbruikte_uren);
   return {
     id: obj.id,
     naam: p.naam || 'Strippenkaart',
     totaal,
-    verbruikt,
-    resterend: totaal - verbruikt,
+    verbruikt: verbruiktStored,
+    resterend: totaal - verbruiktStored,
     uurtarief: num(p.uurtarief),
     startdatum: p.startdatum ? Number(new Date(p.startdatum)) : null,
     geldigTot: p.geldig_tot ? Number(new Date(p.geldig_tot)) : null,
     status: p.status || 'actief',
+    _storedVerbruikt: verbruiktStored,
+    _storedStatus: p.status || 'actief',
   };
 }
 
@@ -112,27 +114,53 @@ async function getData(companyId) {
     : [];
   kaarten.sort((a, b) => (a.startdatum || 0) - (b.startdatum || 0));
 
+  // Verbruikt live berekenen uit de aan de kaart gekoppelde registraties, zodat de
+  // balk altijd klopt - ongeacht hoe uren zijn gelogd (card, GRIP of handmatig).
+  const regsPerKaart = {};
+  for (const k of kaarten) {
+    const rIds = await getAssociatedIds(strip, k.id, uren);
+    const regs = rIds.length ? await batchRead(uren, rIds, UREN_PROPS) : [];
+    const mapped = regs.map((r) => ({
+      id: r.id,
+      omschrijving: (r.properties || {}).omschrijving || '',
+      datum: (r.properties || {}).datum
+        ? Number(new Date(r.properties.datum))
+        : null,
+      uren: num((r.properties || {}).uren),
+      werktype: (r.properties || {}).werktype || '',
+      medewerker: (r.properties || {}).medewerker || '',
+    }));
+    regsPerKaart[k.id] = mapped;
+    const live = mapped.reduce((s, x) => s + x.uren, 0);
+    k.verbruikt = live;
+    k.resterend = k.totaal - live;
+    k.status = berekenStatus(k.totaal, live, k.geldigTot);
+    // Zelfherstel: opgeslagen teller bijwerken als die is afgeweken (houdt de
+    // grip-tool en eventuele workflows kloppend, ongeacht het logkanaal).
+    if (Math.abs(live - k._storedVerbruikt) > 0.001 || k.status !== k._storedStatus) {
+      try {
+        await api(`/crm/v3/objects/${strip}/${k.id}`, 'PATCH', {
+          properties: {
+            verbruikte_uren: live,
+            resterende_uren: k.totaal - live,
+            status: k.status,
+          },
+        });
+      } catch (e) {
+        // teller-sync mag de weergave nooit blokkeren
+      }
+    }
+  }
+
   const actieve =
     kaarten.find((k) => k.status !== 'verbruikt' && k.status !== 'verlopen') || null;
-
-  const urenIds = await getAssociatedIds('companies', companyId, uren);
-  let recent = [];
-  if (urenIds.length) {
-    const regs = await batchRead(uren, urenIds.slice(-200), UREN_PROPS);
-    recent = regs
-      .map((r) => ({
-        id: r.id,
-        omschrijving: (r.properties || {}).omschrijving || '',
-        datum: (r.properties || {}).datum
-          ? Number(new Date(r.properties.datum))
-          : null,
-        uren: num((r.properties || {}).uren),
-        werktype: (r.properties || {}).werktype || '',
-        medewerker: (r.properties || {}).medewerker || '',
-      }))
-      .sort((a, b) => (b.datum || 0) - (a.datum || 0))
-      .slice(0, 50);
-  }
+  const bronKaart = actieve || kaarten[kaarten.length - 1] || null;
+  const recent = bronKaart
+    ? (regsPerKaart[bronKaart.id] || [])
+        .slice()
+        .sort((a, b) => (b.datum || 0) - (a.datum || 0))
+        .slice(0, 50)
+    : [];
 
   return { kaarten, actieve, recent };
 }
